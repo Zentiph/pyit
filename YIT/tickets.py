@@ -6,6 +6,7 @@ Tools for working with tickets.
 
 from datetime import UTC, datetime
 
+from .sorting import sort_by_recent, sort_by_urgency
 from .tick_types import FilterMethod, SortMethod, Ticket, Urgency
 
 
@@ -47,13 +48,25 @@ def list_tickets(
     tickets: list[Ticket],
     /,
     *,
-    filter_method: FilterMethod = "all",
+    filter_method: FilterMethod = "open",
     sort_method: SortMethod = "none",
 ) -> None:
     """List all the tickets with optional filter and sort methods.
 
     Args:
         tickets (list[Ticket]): The tickets to list.
-        filter_method (FilterMethod, optional): The filter method. Defaults to "all".
+        filter_method (FilterMethod, optional): The filter method. Defaults to "open".
         sort_method (SortMethod, optional): The sort method. Defaults to "none".
     """
+    match filter_method:
+        case "open":
+
+
+    match sort_method:
+        case "urgency":
+            it = sort_by_urgency(tickets)
+        case "most-recent":
+            it = sort_by_recent(tickets)
+        case _:
+            it = tickets
+

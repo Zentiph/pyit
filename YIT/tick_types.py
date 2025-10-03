@@ -8,7 +8,7 @@ from typing import Literal, NotRequired, TypeAlias, TypedDict
 
 Urgency: TypeAlias = Literal["low", "medium", "high"]
 Status: TypeAlias = Literal["open", "closed"]
-SortMethod: TypeAlias = Literal["priority", "most-recent", "none"]
+SortMethod: TypeAlias = Literal["urgency", "most-recent", "none"]
 FilterMethod: TypeAlias = Literal["all", "open", "closed", "high", "medium", "low"]
 
 TicketKey: TypeAlias = Literal[
@@ -56,8 +56,8 @@ def validate_sort_method(sort_method: str) -> SortMethod | None:
     Returns:
         SortMethod | None: The converted sort method, or None if it failed.
     """
-    if sort_method in {"p", "pri", "priority"}:
-        return "priority"
+    if sort_method in {"u", "urg", "urgency"}:
+        return "urgency"
     if sort_method in {
         "r",
         "recent",

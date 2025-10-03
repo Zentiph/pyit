@@ -4,33 +4,25 @@ Sorting functions for tickets.
 :authors: Gavin Borne
 """
 
-from typing import Literal
-
 from .tick_types import Ticket, Urgency
 
-
-def _urgency_ord(urgency: Urgency, /) -> Literal[0, 1, 2]:
-    m: dict[Urgency, Literal[0, 1, 2]] = {"low": 0, "medium": 1, "high": 2}
-    return m[urgency]
+URGENCY_ORD: dict[Urgency, int] = {"low": 0, "medium": 1, "high": 2}
+"""A mapping of urgency strings to their ordinal values."""
 
 
-def priority(tickets: list[Ticket], /, *, low_first: bool = False) -> list[Ticket]:
-    """Sort a list of tickets by priority.
+def sort_by_urgency(tickets: list[Ticket], /) -> list[Ticket]:
+    """Sort a list of tickets by urgency.
 
     Args:
         tickets (list[Ticket]): The tickets to sort.
-        low_first (bool, optional): Whether to sort by lowest priority first.
-            Defaults to False.
 
     Returns:
         list[Ticket]: The sorted tickets.
     """
-    return sorted(
-        tickets, key=lambda t: _urgency_ord(t["urgency"]), reverse=(not low_first)
-    )
+    return sorted(tickets, key=lambda t: URGENCY_ORD[t["urgency"]], reverse=True)
 
 
-def recent(tickets: list[Ticket], /) -> list[Ticket]:
+def sort_by_recent(tickets: list[Ticket], /) -> list[Ticket]:
     """Sort a list of tickets by how recent they are.
 
     Args:
