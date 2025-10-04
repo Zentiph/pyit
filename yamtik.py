@@ -24,8 +24,7 @@ def init_parser() -> argparse.ArgumentParser:
     )
 
     parser.add_argument("path", help="input yaml file")
-
-    cmd = parser.add_subparsers(dest="cmd", required=False)
+    cmd = parser.add_subparsers(dest="cmd", required=True)
 
     new_cmd = cmd.add_parser("new", help="create a new issue ticket")
     new_cmd.add_argument(
@@ -35,28 +34,57 @@ def init_parser() -> argparse.ArgumentParser:
     )
     new_cmd.add_argument("title", help="the title of the issue")
     new_cmd.add_argument("-d", "--desc", required=False, default="")
+    new_cmd.set_defaults(_subparser=new_cmd)
 
     list_cmd = cmd.add_parser("list", help="list all of the tickets in the given file")
     list_cmd.add_argument(
         "-f",
         "--filter",
-        choices=pyit.FILTER_METHODS,
+        choices=(
+            *pyit.FILTER_METHODS,
+            "a",
+            "o",
+            "c",
+            "h",
+            "m",
+            "l",
+            "op",
+            "cl",
+            "hi",
+            "med",
+            "lo",
+        ),
         default="open",
         help="the filter method to use when displaying the tickets",
     )
     list_cmd.add_argument(
         "-s",
         "--sort",
-        choices=pyit.SORT_METHODS,
+        choices=(
+            *pyit.SORT_METHODS,
+            "u",
+            "urg",
+            "r",
+            "recent",
+            "t",
+            "time",
+            "most recent",
+            "mostrecent",
+            "n",
+            "no",
+        ),
         default="none",
         help="the sorting method to use when displaying the tickets",
     )
+    list_cmd.set_defaults(_subparser=list_cmd)
 
     show_cmd = cmd.add_parser("show", help="show an issue ticket")
     show_cmd.add_argument("tid", type=int, help="the id of the ticket to show")
+    show_cmd.set_defaults(_subparser=show_cmd)
 
     close_cmd = cmd.add_parser("close", help="close an issue ticket")
     close_cmd.add_argument("tid", type=int, help="the id of the ticket to close")
+    close_cmd.set_defaults(_subparser=close_cmd)
 
     return parser
 
@@ -67,7 +95,14 @@ def main() -> None:
     Executes various commands based on the command given in the CLI args.
     """
     parser = init_parser()
-    args = parser.parse_args(sys.argv[1:])
+    args, unknown = parser.parse_known_args(sys.argv[1:])
+
+    if unknown:
+        # try to print the help of the subparser,
+        # otherwise default to the regular help
+        subparser = getattr(args, "_subparser", None)
+        (subparser or parser).print_help()
+        parser.exit(2, f"\nerror: unrecognized arguments: {' '.join(unknown)}\n")
 
     if not args.path.endswith(".yaml"):
         print("The provided path must be a .yaml file.")  # noqa T201
