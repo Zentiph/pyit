@@ -15,12 +15,14 @@ To get all the necessary files, run the following command:
 ```bash
 git clone https://github.com/Zentiph/pyit
 ```
+
 ### 2) Install the necessary tools
 If you don't have Python, make sure to install it. Any version above 3.10 should be fine.
 Then, install all of the required Python packages by running this command in the directory you cloned into:
 ```bash
 pip install -r requirements.txt
 ```
+
 ### 3) Using the tool
 The file you want to run is `yamtik.py`. Running it with no arguments will print a simple usage message to help you get started:
 ```bash
@@ -30,6 +32,7 @@ For a full list of possible input options, use:
 ```bash
 python yamtik.py -h
 ```
+
 ### 4) Accessing the tool from anywhere
 If you want to be able to run this file from anywhere on your device, follow the steps corresponding to your OS below.
 **Windows:**
@@ -40,12 +43,14 @@ If you want to be able to run this file from anywhere on your device, follow the
 @echo off
 py "C:\path\to\pyit\yamtik.py" %*
 ```
-where "C:\path\to\pyit\yamtik.py" is replaced by the full path to wherever you are storing `yamtik.py`.
+where "C:\path\to\pyit\yamtik.py" is replaced by the full path to wherever you are storing `yamtik.py`.\
+
 4. Open a new terminal and run:
 ```bash
 yamtik
 ```
 If it prints output, it worked!
+
 **Unix:**
 1. Ensure `~bin` exists and is on your PATH (add `export PATH="$HOME/bin:$PATH"` to your shell rc).
 2. Create a symlink:
@@ -54,6 +59,7 @@ ln -s /path/to/pyit/yamtik.py ~/bin/yamtik
 chmod +x /path/to/pyit/yamtik.py
 ```
 where "/path/to/pyit/yamtik.py" is replaced by the full path to wherever you are storing `yamtik.py`.
+
 3. Open a new terminal and run:
 ```bash
 yamtik
