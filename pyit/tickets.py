@@ -4,8 +4,10 @@ Tools for working with tickets.
 :authors: Gavin Borne
 """
 
+import json
 from datetime import UTC, datetime
 
+from .filtering import filter_by_status, filter_by_urgency
 from .sorting import sort_by_recent, sort_by_urgency
 from .tick_types import FilterMethod, SortMethod, Ticket, Urgency
 
@@ -59,14 +61,60 @@ def list_tickets(
         sort_method (SortMethod, optional): The sort method. Defaults to "none".
     """
     match filter_method:
-        case "open":
-
-
-    match sort_method:
-        case "urgency":
-            it = sort_by_urgency(tickets)
-        case "most-recent":
-            it = sort_by_recent(tickets)
+        case "open" | "closed":
+            it = filter_by_status(tickets, filter_method)
+        case "high" | "medium" | "low":
+            it = filter_by_urgency(tickets, filter_method)
         case _:
             it = tickets
 
+    match sort_method:
+        case "urgency":
+            it = sort_by_urgency(it)
+        case "most-recent":
+            it = sort_by_recent(it)
+        case _:
+            pass
+
+    for t in it:
+        print(  # noqa T201
+            f"#{t['id']:>3}"
+            f"  [{t['urgency'][:1].upper()}]"
+            f"  {t['title']}"
+            f"  ({t['status']})"
+        )
+
+
+def show_ticket(tickets: list[Ticket], tid: int, /) -> None:
+    """Show a singular ticket.
+
+    Args:
+        tickets (list[Ticket]): All of the tickets.
+        tid (int): The id of the ticket to show.
+    """
+    ticket = next((t for t in tickets if t["id"] == tid), None)
+    if not ticket:
+        print(f"Ticket {tid} not found.")  # noqa T201
+    else:
+        print(json.dumps(ticket, indent=2))  # noqa T201
+
+
+def close_ticket(tickets: list[Ticket], tid: int, /) -> bool:
+    """Close a ticket.
+
+    Args:
+        tickets (list[Ticket]): All of the tickets.
+        tid (int): The id of the ticket to close.
+
+    Returns:
+        bool: Whether this operation successfully closed the ticket.
+    """
+    found = False
+    for ticket in tickets:
+        if ticket["id"] == tid:
+            ticket["status"] = "closed"
+            ticket["closed"] = datetime.now(tz=UTC).date().isoformat()
+            found = True
+            break
+
+    return found
