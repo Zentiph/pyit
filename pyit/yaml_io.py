@@ -10,6 +10,8 @@ import yaml
 
 from .tick_types import Ticket
 
+__all__ = ["load", "save"]
+
 
 def load(loc: str) -> list[Ticket]:
     """Load a tickets YAML file.

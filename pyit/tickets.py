@@ -11,6 +11,8 @@ from .filtering import filter_by_status, filter_by_urgency
 from .sorting import sort_by_recent, sort_by_urgency
 from .tick_types import FilterMethod, SortMethod, Ticket, Urgency
 
+__all__ = ["close_ticket", "list_tickets", "new_ticket", "next_id", "show_ticket"]
+
 
 def next_id(tickets: list[Ticket], /) -> int:
     """Get the next ticket id based on the existing tickets.
@@ -24,7 +26,9 @@ def next_id(tickets: list[Ticket], /) -> int:
     return max((t["id"] for t in tickets), default=0) + 1
 
 
-def new_ticket(tid: int, urgency: Urgency, title: str, description: str = "") -> Ticket:
+def new_ticket(
+    tid: int, urgency: Urgency, /, title: str, description: str = ""
+) -> Ticket:
     """Create a new ticket.
 
     Args:

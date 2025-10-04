@@ -4,12 +4,32 @@ Types for the ticket program.
 :author: Gavin Borne
 """
 
-from typing import Literal, NotRequired, TypeAlias, TypedDict
+from typing import Literal, NotRequired, TypeAlias, TypedDict, get_args
+
+__all__ = [
+    "FILTER_METHODS",
+    "SORT_METHODS",
+    "STATUSES",
+    "URGENCIES",
+    "FilterMethod",
+    "SortMethod",
+    "Status",
+    "Ticket",
+    "Urgency",
+    "validate_filter_method",
+    "validate_sort_method",
+    "validate_urgency",
+]
 
 Urgency: TypeAlias = Literal["low", "medium", "high"]
 Status: TypeAlias = Literal["open", "closed"]
 SortMethod: TypeAlias = Literal["urgency", "most-recent", "none"]
 FilterMethod: TypeAlias = Literal["all", "open", "closed", "high", "medium", "low"]
+
+URGENCIES = get_args(Urgency)
+STATUSES = get_args(Status)
+SORT_METHODS = get_args(SortMethod)
+FILTER_METHODS = get_args(FilterMethod)
 
 TicketKey: TypeAlias = Literal[
     "id", "title", "description", "urgency", "status", "created", "closed"
