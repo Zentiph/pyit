@@ -2,6 +2,9 @@
 **pyit** is a simple issue issue ticket system made in Python with the yaml library
 to quickly add, track, and close issue tickets to better manage projects.
 
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/zentiph/pyit)
+![GitHub last commit](https://img.shields.io/github/last-commit/zentiph/pyit)
+
 ## Features
 * Create new tickets
 * List existing tickets
