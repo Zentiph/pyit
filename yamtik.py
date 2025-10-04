@@ -67,30 +67,33 @@ def main() -> None:
     Executes various commands based on the command given in the CLI args.
     """
     parser = init_parser()
-    args = parser.parse_args(sys.argv)
-    tickets = pyit.load(args.path)
+    args = parser.parse_args(sys.argv[1:])
 
     if not args.path.endswith(".yaml"):
-        sys.exit("The provided path must be a .yaml file.")
+        print("The provided path must be a .yaml file.")  # noqa T201
+        parser.print_usage()
+        sys.exit(-1)
+
+    tickets = pyit.load(args.path)
 
     if args.cmd == "new":
-        urg = pyit.validate_urgency(args.new.urgency)
+        urg = pyit.validate_urgency(args.urgency)
         if urg is None:
             sys.exit(f"Unknown urgency: {urg}")
 
         tid = pyit.next_id(tickets)
-        tickets.append(pyit.new_ticket(tid, urg, args.new.title, args.new.desc))
+        tickets.append(pyit.new_ticket(tid, urg, args.title, args.desc))
         pyit.save(tickets, args.path)
-        print(f"Issue ticket #{tid} {args.new.title} saved!")  # noqa T201
+        print(f"Issue ticket #{tid} {args.title} saved!")  # noqa T201
 
         return
 
     if args.cmd == "list":
-        filt = pyit.validate_filter_method(args.list.filter)
+        filt = pyit.validate_filter_method(args.filter)
         if filt is None:
             sys.exit(f"Unknown filter method: {filt}")
 
-        sort = pyit.validate_sort_method(args.list.sort)
+        sort = pyit.validate_sort_method(args.sort)
         if sort is None:
             sys.exit(f"Unknown sort method: {sort}")
 
@@ -98,12 +101,12 @@ def main() -> None:
         return
 
     if args.cmd == "show":
-        tid = args.show.tid
+        tid = args.tid
         pyit.show_ticket(tickets, tid)
         return
 
     if args.cmd == "close":
-        tid = args.close.tid
+        tid = args.tid
         found = pyit.close_ticket(tickets, tid)
         if not found:
             sys.exit(f"Issue ticket #{tid} was not found.")
