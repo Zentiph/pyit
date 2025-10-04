@@ -72,6 +72,8 @@ def list_tickets(
         case _:
             it = tickets
 
+    largest_id_digits = len(str(it[-1]["id"]))
+
     match sort_method:
         case "urgency":
             it = sort_by_urgency(it)
@@ -81,8 +83,9 @@ def list_tickets(
             pass
 
     for t in it:
+        id_digits = len(str(t["id"]))
         print(  # noqa T201
-            f"#{t['id']:>3}"
+            "#" + " " * (largest_id_digits - id_digits) + f"{t['id']}"
             f"  [{t['urgency'][:1].upper()}]"
             f"  {t['title']}"
             f"  ({t['status']})"
