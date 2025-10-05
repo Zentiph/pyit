@@ -38,6 +38,7 @@ python yamtik.py -h
 
 ### 4) Accessing the tool from anywhere
 If you want to be able to run this file from anywhere on your device, follow the steps corresponding to your OS below.
+
 **Windows:**
 1. Create a person bin folder (e.g. `C:\Users\<you>\bin`) and add it to your User PATH.
 2. Create a `yamtik.cmd` file inside the bin directory you created in step 1.
