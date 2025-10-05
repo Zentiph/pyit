@@ -40,20 +40,19 @@ python yamtik.py -h
 If you want to be able to run this file from anywhere on your device, follow the steps corresponding to your OS below.
 
 **Windows:**
-1. Create a person bin folder (e.g. `C:\Users\<you>\bin`) and add it to your User PATH.
+1. Create a personal bin folder (e.g. `C:\Users\<you>\bin`) and add it to your User PATH.
 2. Create a `yamtik.cmd` file inside the bin directory you created in step 1.
 3. Place the following inside the `yamtik.cmd` file:
 ```bash
 @echo off
 py "C:\path\to\pyit\yamtik.py" %*
 ```
-where "C:\path\to\pyit\yamtik.py" is replaced by the full path to wherever you are storing `yamtik.py`.\
+where "C:\path\to\pyit\yamtik.py" is replaced by the full path to wherever you are storing `yamtik.py`.
 
 4. Open a new terminal and run:
 ```bash
 yamtik
 ```
-If it prints output, it worked!
 
 **Unix:**
 1. Ensure `~bin` exists and is on your PATH (add `export PATH="$HOME/bin:$PATH"` to your shell rc).
