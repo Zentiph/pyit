@@ -1,5 +1,5 @@
 # pyit - Python YAML Issue Tracker
-**pyit** is a simple issue issue ticket system made in Python with the yaml library
+**pyit** is a simple issue ticket system made in Python with the yaml library
 to quickly add, track, and close issue tickets to better manage projects.
 
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/zentiph/pyit)
