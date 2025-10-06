@@ -2,8 +2,14 @@
 **pyit** is a simple issue ticket system made in Python with the yaml library
 to quickly add, track, and close issue tickets to better manage projects.
 
-![GitHub commit activity](https://img.shields.io/github/commit-activity/t/zentiph/pyit)
-![GitHub last commit](https://img.shields.io/github/last-commit/zentiph/pyit)
+[![GitHub License](https://img.shields.io/github/license/zentiph/pyit?style=flat-square&labelColor=0f0f0f)](https://github.com/Zentiph/pyit/blob/main/LICENSE.md)
+[![Contributors](https://img.shields.io/github/contributors/zentiph/pyit?style=flat-square&labelColor=0f0f0f)](../../graphs/contributors)
+<br/>
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/t/zentiph/pyit?style=flat-square&labelColor=0f0f0f)](https://github.com/zentiph/pyit/commits/main)
+[![Last Commit](https://img.shields.io/github/last-commit/zentiph/pyit?style=flat-square&labelColor=0f0f0f)](https://github.com/zentiph/pyit/commits/main)
+<br/>
+![Code Style: Ruff](https://img.shields.io/badge/code%20style-Ruff-d7ff64?style=flat-square&labelColor=0f0f0f)
+![Linter: Ruff](https://img.shields.io/badge/linter-Ruff-d7ff64?style=flat-square&labelColor=0f0f0f)
 
 ## Features
 * Create new tickets
